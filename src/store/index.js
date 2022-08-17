@@ -1,6 +1,7 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 
-const defaultState = { count: 0, showCount: true };
+const defaultCounterState = { count: 0, showCount: true };
+const defaultAuthState = { authenticated: false }
 
 // If you return in reducer slice a new value then state will be overwritten by Immer
 // const counterSlice = createSlice({
@@ -35,7 +36,7 @@ const defaultState = { count: 0, showCount: true };
 
 const counterSlice = createSlice({
     name: 'counter',
-    initialState: defaultState,
+    initialState: defaultCounterState,
     reducers: {
         increament(state, action) {
             state.count = state.count + action.payload
@@ -49,10 +50,26 @@ const counterSlice = createSlice({
     }
 });
 
-
-const store = configureStore({
-    reducer: counterSlice.reducer
+const authSlice = createSlice({
+    name: 'Authentication',
+    initialState: defaultAuthState,
+    reducers: {
+        logIn(state) {
+            state.authenticated = true;
+        },
+        logOut(state) {
+            state.authenticated = false;
+        }
+    }
 });
 
+const store = configureStore({
+    reducer: {
+        counter: counterSlice.reducer,
+        auth: authSlice.reducer
+    }
+});
+
+export const authActions = authSlice.actions;
 export const counterActions = counterSlice.actions;
 export default store;

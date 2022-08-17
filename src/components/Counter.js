@@ -6,8 +6,8 @@ import classes from './Counter.module.css';
 const Counter = () => {
 	// use to get slice of returned output by reducer function
 	// useSelector redux automatically creates subscription of this component
-	const counter = useSelector(state => state.count);
-	const show = useSelector(state => state.showCount);
+	const counter = useSelector(state => state.counter.count);
+	const show = useSelector(state => state.counter.showCount);
 
 	const dispatch = useDispatch();
 
